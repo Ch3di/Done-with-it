@@ -3,16 +3,27 @@ import { View, Image, StyleSheet, TouchableHighlight } from "react-native";
 import AppText from "./AppText";
 import colors from "../config/colors";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import ListItemDeleteAction from "./ListItemDeleteAction";
-function ListItem({ image, title, subtitle, onPress }) {
+function ListItem({
+    image,
+    title,
+    subtitle,
+    IconComponent,
+    onPress,
+    renderRightActions
+}) {
     return (
-        <Swipeable renderRightActions={ListItemDeleteAction}>
+        <Swipeable renderRightActions={renderRightActions}>
             <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
                 <View style={styles.container}>
-                    <Image style={styles.image} source={image} />
-                    <View>
+                    {IconComponent}
+                    {image && <Image style={styles.image} source={image} />}
+                    <View style={styles.details}>
                         <AppText style={styles.title}>{title}</AppText>
-                        <AppText style={styles.subtitle}>{subtitle}</AppText>
+                        {subtitle && (
+                            <AppText style={styles.subtitle}>
+                                {subtitle}
+                            </AppText>
+                        )}
                     </View>
                 </View>
             </TouchableHighlight>
@@ -25,14 +36,18 @@ export default ListItem;
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        padding: 12
+        padding: 10,
+        backgroundColor: colors.white
+    },
+    details: {
+        marginLeft: 12,
+        justifyContent: "center"
     },
     image: {
         height: 70,
         width: 70,
         borderRadius: 35,
-        marginLeft: 20,
-        marginRight: 12
+        marginLeft: 10
     },
     subtitle: {
         color: colors.medium
