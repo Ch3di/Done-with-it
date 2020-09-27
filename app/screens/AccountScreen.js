@@ -7,6 +7,8 @@ import colors from "../config/colors";
 import ListItemSeperator from "../components/ListItemSeperator";
 import Icon from "../components/Icon";
 import routes from "../navigation/routes";
+import useAuth from "../auth/useAuth";
+
 const menuItems = [
     {
         title: "My Listings",
@@ -26,12 +28,14 @@ const menuItems = [
 ];
 
 function AccountScreen({ navigation }) {
+    const { user, logOut } = useAuth();
+
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
                 <ListItem
-                    title="Chady"
-                    subtitle="Chady@gg.com"
+                    title={user.name}
+                    subtitle={user.email}
                     image={require("../assets/user.jpeg")}
                 />
             </View>
@@ -59,6 +63,7 @@ function AccountScreen({ navigation }) {
             <ListItem
                 title="log out"
                 IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+                onPress={() => logOut()}
             />
         </Screen>
     );
