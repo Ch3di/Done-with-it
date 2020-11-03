@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import * as Yup from "yup";
 
 import Screen from "../components/Screen";
@@ -99,54 +99,59 @@ function ListingEditScreen(props) {
     };
 
     return (
-        <Screen style={styles.container}>
-            <UploadScreen
-                progress={progress}
-                visible={uploadVisible}
-                onDone={() => setUploadVisible(false)}
-            />
-            <AppForm
-                initialValues={{
-                    title: "",
-                    price: "",
-                    description: "",
-                    category: null,
-                    images: []
-                }}
-                onSubmit={handleSubmit}
-                validationSchema={validationSchema}
-            >
-                <AppFormImagePicker name="images" />
-                <AppFormField
-                    maxLength={255}
-                    name="title"
-                    placeholder="Title"
+        <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+        >
+            <Screen style={styles.container}>
+                <UploadScreen
+                    progress={progress}
+                    visible={uploadVisible}
+                    onDone={() => setUploadVisible(false)}
                 />
-                <AppFormField
-                    keyboardType="numeric"
-                    maxLength={8}
-                    name="price"
-                    placeholder="Price"
-                    width={130}
-                />
-                <AppFormPicker
-                    items={categories}
-                    name="category"
-                    numberOfColumns={3}
-                    PickerItemComponent={CategoryPickerItem}
-                    placeholder="Category"
-                    width={150}
-                />
-                <AppFormField
-                    maxLength={255}
-                    multiline
-                    name="description"
-                    numberOfLines={3}
-                    placeholder="Description"
-                />
-                <SubmitButton title="Post" />
-            </AppForm>
-        </Screen>
+                <AppForm
+                    initialValues={{
+                        title: "",
+                        price: "",
+                        description: "",
+                        category: null,
+                        images: []
+                    }}
+                    onSubmit={handleSubmit}
+                    validationSchema={validationSchema}
+                >
+                    <AppFormImagePicker name="images" />
+                    <AppFormField
+                        maxLength={255}
+                        name="title"
+                        placeholder="Title"
+                    />
+                    <AppFormField
+                        keyboardType="numeric"
+                        maxLength={8}
+                        name="price"
+                        placeholder="Price"
+                        width={130}
+                    />
+                    <AppFormPicker
+                        items={categories}
+                        name="category"
+                        numberOfColumns={3}
+                        PickerItemComponent={CategoryPickerItem}
+                        placeholder="Category"
+                        width={150}
+                    />
+                    <AppFormField
+                        maxLength={255}
+                        multiline
+                        name="description"
+                        numberOfLines={3}
+                        placeholder="Description"
+                    />
+                    <SubmitButton title="Post" />
+                </AppForm>
+            </Screen>
+        </ScrollView>
     );
 }
 

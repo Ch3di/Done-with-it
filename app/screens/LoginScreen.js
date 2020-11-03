@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, ScrollView } from "react-native";
 import * as Yup from "yup";
 
 import Screen from "../components/Screen";
@@ -27,41 +27,46 @@ function LoginScreen(props) {
         auth.logIn(result.data);
     };
     return (
-        <Screen style={styles.container}>
-            <Image
-                style={styles.logo}
-                source={require("../assets/logo-red.png")}
-            />
-            <AppForm
-                initialValues={{ email: "", password: "" }}
-                onSubmit={handleSubmit}
-                validationSchema={validationSchema}
-            >
-                <ErrorMessage
-                    error="Invalid email and/or password."
-                    visible={loginFailed}
+        <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+        >
+            <Screen style={styles.container}>
+                <Image
+                    style={styles.logo}
+                    source={require("../assets/logo-red.png")}
                 />
-                <AppFormField
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    name="email"
-                    icon="email"
-                    keyboardType="email-address"
-                    placeholder="Email"
-                    textContentType="emailAddress"
-                />
-                <AppFormField
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    name="password"
-                    icon="lock"
-                    placeholder="Password"
-                    secureTextEntry
-                    textContentType="password"
-                />
-                <SubmitButton title="Login" />
-            </AppForm>
-        </Screen>
+                <AppForm
+                    initialValues={{ email: "", password: "" }}
+                    onSubmit={handleSubmit}
+                    validationSchema={validationSchema}
+                >
+                    <ErrorMessage
+                        error="Invalid email and/or password."
+                        visible={loginFailed}
+                    />
+                    <AppFormField
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        name="email"
+                        icon="email"
+                        keyboardType="email-address"
+                        placeholder="Email"
+                        textContentType="emailAddress"
+                    />
+                    <AppFormField
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        name="password"
+                        icon="lock"
+                        placeholder="Password"
+                        secureTextEntry
+                        textContentType="password"
+                    />
+                    <SubmitButton title="Login" />
+                </AppForm>
+            </Screen>
+        </ScrollView>
     );
 }
 
