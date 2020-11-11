@@ -48,6 +48,8 @@ function ListingScreen({ navigation }) {
                             thumbnailUrl={item.images[0].thumbnailUrl}
                         />
                     )}
+                    refreshing={false}
+                    onRefresh={() => loadListings()}
                 />
             </Screen>
         </>

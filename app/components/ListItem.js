@@ -4,7 +4,7 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppText from "./AppText";
 import colors from "../config/colors";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+
 function ListItem({
     image,
     title,
@@ -13,6 +13,16 @@ function ListItem({
     onPress,
     renderRightActions
 }) {
+    const SubtitleComponent = () => {
+        if (subtitle)
+            return (
+                <AppText style={styles.subtitle} numberOfLines={2}>
+                    {subtitle}
+                </AppText>
+            );
+        return null;
+    };
+
     return (
         <Swipeable renderRightActions={renderRightActions}>
             <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
@@ -23,11 +33,7 @@ function ListItem({
                         <AppText style={styles.title} numberOfLines={1}>
                             {title}
                         </AppText>
-                        {subtitle && (
-                            <AppText style={styles.subtitle} numberOfLines={2}>
-                                {subtitle}
-                            </AppText>
-                        )}
+                        {SubtitleComponent()}
                     </View>
                     <MaterialCommunityIcons
                         name="chevron-right"
